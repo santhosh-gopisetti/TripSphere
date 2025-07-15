@@ -17,7 +17,7 @@ const travelPackages = [
     city: "Goa",
     address: "Goa, India",
     distance: 450,
-    photo: "http://localhost:5173/goa.jpg",
+    photo: "/goa.jpg",
     desc: "Relax on the golden beaches and enjoy Goa's vibrant nightlife and seafood.",
     price: 5999,
     maxGroupSize: 10
@@ -28,7 +28,7 @@ const travelPackages = [
     city: "Manali",
     address: "Manali, Himachal Pradesh, India",
     distance: 620,
-    photo: "http://localhost:5173/manali.jpg",
+    photo: "/manali.jpg",
     desc: "Experience snow-capped peaks and adventure sports in the Himalayan town of Manali.",
     price: 7499,
     maxGroupSize: 8
@@ -39,7 +39,7 @@ const travelPackages = [
     city: "Alleppey",
     address: "Alleppey, Kerala, India",
     distance: 800,
-    photo: "http://localhost:5173/kerala.jpg",
+    photo: "/kerala.jpg",
     desc: "Cruise the peaceful backwaters of Kerala on a traditional houseboat.",
     price: 8999,
     maxGroupSize: 12
@@ -50,7 +50,7 @@ const travelPackages = [
     city: "Jaipur",
     address: "Jaipur, Rajasthan, India",
     distance: 380,
-    photo: "http://localhost:5173/jaipur.jpg",
+    photo: "/jaipur.jpg",
     desc: "Explore royal palaces, forts, and the vibrant culture of the Pink City.",
     price: 6299,
     maxGroupSize: 9
@@ -61,7 +61,7 @@ const travelPackages = [
     city: "Varanasi",
     address: "Varanasi, Uttar Pradesh, India",
     distance: 550,
-    photo: "http://localhost:5173/varanasi.jpg",
+    photo: "/varanasi.jpg",
     desc: "Witness the spiritual aura of the Ganges and ancient temples of Varanasi.",
     price: 4999,
     maxGroupSize: 8
@@ -72,7 +72,7 @@ const travelPackages = [
     city: "Leh",
     address: "Leh, Ladakh, India",
     distance: 1050,
-    photo: "http://localhost:5173/leh.jpg",
+    photo: "/leh.jpg",
     desc: "Uncover the high-altitude beauty of Ladakh with monasteries and rugged passes.",
     price: 12999,
     maxGroupSize: 6
