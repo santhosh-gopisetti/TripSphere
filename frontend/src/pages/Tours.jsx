@@ -14,6 +14,7 @@ const Packages = () => {
   const [minGroup, setMinGroup] = useState("");
   // Booking modal state
   const [bookingPackage, setBookingPackage] = useState(null);
+  const [loginPrompt, setLoginPrompt] = useState("");
 
   // Filtered packages
   const filteredPackages = useMemo(() => {
@@ -28,6 +29,16 @@ const Packages = () => {
 
   // Unique city options
   const cityOptions = getUnique(travelPackages, "city");
+
+  // Handler for booking button
+  const handleBook = (pkg) => {
+    if (localStorage.getItem("token")) {
+      setBookingPackage(pkg);
+      setLoginPrompt("");
+    } else {
+      setLoginPrompt("Please login to book a package.");
+    }
+  };
 
   return (
     <section className="min-h-screen py-8 px-6 md:px-12">
@@ -67,9 +78,10 @@ const Packages = () => {
       {/* Packages List */}
       <div className="grid md:grid-cols-3 gap-8">
         {filteredPackages.map((pkg) => (
-          <PackageCard key={pkg.id} tour={pkg} onBook={() => setBookingPackage(pkg)} />
+          <PackageCard key={pkg.id} tour={pkg} onBook={() => handleBook(pkg)} />
         ))}
       </div>
+      {loginPrompt && <p className="text-center text-red-600 mt-4">{loginPrompt}</p>}
       {error && <p className="text-red-500 text-center mt-4">Failed to load packages.</p>}
       {/* Booking Modal */}
       {bookingPackage && (

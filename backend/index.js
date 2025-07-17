@@ -1,15 +1,21 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const app = express();
 const PORT = process.env.PORT || 3050;
+const JWT_SECRET = process.env.JWT_SECRET || "supersecretkey";
 
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 
-// Dummy travel packages with new location names and real Unsplash image URLs
+// In-memory users array (for demo only)
+const users = [];
+
+// Dummy travel packages with local images
 const travelPackages = [
   {
     id: 1,
@@ -79,6 +85,34 @@ const travelPackages = [
   }
 ];
 
+// AUTH: Register
+app.post("/api/auth/register", async (req, res) => {
+  const { username, email, password } = req.body;
+  if (!username || !email || !password) {
+    return res.status(400).json({ success: false, message: "All fields required." });
+  }
+  if (users.find(u => u.email === email)) {
+    return res.status(409).json({ success: false, message: "Email already registered." });
+  }
+  const hashedPassword = await bcrypt.hash(password, 10);
+  users.push({ username, email, password: hashedPassword });
+  res.status(201).json({ success: true, message: "User registered successfully." });
+});
+
+// AUTH: Login
+app.post("/api/auth/login", async (req, res) => {
+  const { email, password } = req.body;
+  const user = users.find(u => u.email === email);
+  if (!user) {
+    return res.status(401).json({ success: false, message: "Invalid credentials." });
+  }
+  const valid = await bcrypt.compare(password, user.password);
+  if (!valid) {
+    return res.status(401).json({ success: false, message: "Invalid credentials." });
+  }
+  const token = jwt.sign({ email: user.email, username: user.username }, JWT_SECRET, { expiresIn: "2h" });
+  res.json({ success: true, token, username: user.username });
+});
 
 // GET /packages
 app.get("/api/packages", (req, res) => {
